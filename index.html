@@ -1,0 +1,1351 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#1a6b4a">
+<meta name="description" content="VolunConnect — Conecta con causas que importan">
+<link rel="manifest" href="data:application/manifest+json,{
+  %22name%22:%22VolunConnect%22,
+  %22short_name%22:%22VolunConnect%22,
+  %22start_url%22:%22/%22,
+  %22display%22:%22standalone%22,
+  %22theme_color%22:%22%231a6b4a%22,
+  %22background_color%22:%22%23f7f9f5%22,
+  %22icons%22:[{%22src%22:%22data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%231a6b4a'/%3E%3Ctext x='50' y='67' text-anchor='middle' fill='white' font-size='44' font-weight='bold'%3EVC%3C/text%3E%3C/svg%3E%22,%22sizes%22:%22any%22,%22purpose%22:%22any maskable%22}]
+}">
+<title>VolunConnect · Voluntariado que transforma</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+:root{
+  --sage:         #1a6b4a;
+  --sage-mid:     #2a8560;
+  --sage-light:   #e8f3ee;
+  --sage-pale:    #f2f8f5;
+  --amber:        #e8772a;
+  --amber-light:  #fdf2ea;
+  --sky:          #3578b9;
+  --sky-light:    #eaf2fb;
+  --rose:         #c0474b;
+  --rose-light:   #faeaea;
+  --ink:          #1c2b22;
+  --ink-mid:      #3d5248;
+  --ink-soft:     #6b8076;
+  --line:         #dde8e2;
+  --bg:           #f7f9f5;
+  --card:         #ffffff;
+  --radius-sm:    10px;
+  --radius:       18px;
+  --radius-lg:    28px;
+  --shadow-sm:    0 1px 4px rgba(26,107,74,.06);
+  --shadow:       0 4px 20px rgba(26,107,74,.10);
+  --shadow-lg:    0 12px 40px rgba(26,107,74,.15);
+  --font-serif:   'DM Serif Display', Georgia, serif;
+  --font-sans:    'DM Sans', system-ui, sans-serif;
+  --transition:   .22s cubic-bezier(.4,0,.2,1);
+}
+
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--font-sans);
+  background:var(--bg);
+  color:var(--ink);
+  padding-bottom:72px;
+  min-height:100vh;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ── LAYOUT ─────────────────────────────── */
+.container{max-width:1160px;margin:0 auto;padding:0 20px}
+
+/* ── HEADER ─────────────────────────────── */
+.header{
+  background:var(--card);
+  border-bottom:1px solid var(--line);
+  position:sticky;top:0;z-index:200;
+  padding:0;
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+}
+.header-inner{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:12px;height:62px;
+}
+.logo{
+  display:flex;align-items:center;gap:10px;
+  font-family:var(--font-serif);font-size:1.4rem;
+  color:var(--sage);text-decoration:none;letter-spacing:-.01em;
+  flex-shrink:0;
+}
+.logo-icon{
+  width:36px;height:36px;
+  background:var(--sage);border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  color:#fff;font-family:var(--font-serif);font-size:1rem;
+  letter-spacing:-.02em;flex-shrink:0;
+}
+.header-actions{display:flex;gap:8px;align-items:center}
+
+/* ── BUTTONS ─────────────────────────────── */
+.btn{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:9px 20px;border-radius:50px;font-family:var(--font-sans);
+  font-size:.84rem;font-weight:500;cursor:pointer;
+  transition:all var(--transition);border:none;text-decoration:none;
+  white-space:nowrap;
+}
+.btn-primary{background:var(--sage);color:#fff}
+.btn-primary:hover{background:var(--ink);transform:translateY(-1px);box-shadow:var(--shadow)}
+.btn-ghost{background:transparent;color:var(--ink-mid);border:1.5px solid var(--line)}
+.btn-ghost:hover{border-color:var(--sage);color:var(--sage);background:var(--sage-light)}
+.btn-amber{background:var(--amber);color:#fff}
+.btn-amber:hover{background:#c45f1a;transform:translateY(-1px)}
+.btn-sm{padding:6px 14px;font-size:.78rem}
+.btn-icon{padding:8px;border-radius:10px;background:var(--sage-light);color:var(--sage);border:none}
+.btn-icon:hover{background:var(--sage);color:#fff}
+.btn-danger{background:var(--rose-light);color:var(--rose);border:1.5px solid #e8b5b6}
+.btn-danger:hover{background:var(--rose);color:#fff}
+.btn-sky{background:var(--sky-light);color:var(--sky);border:1.5px solid #bdd8f5}
+.btn-sky:hover{background:var(--sky);color:#fff}
+.btn:disabled{opacity:.45;cursor:not-allowed;transform:none!important}
+
+/* ── AVATAR ─────────────────────────────── */
+.avatar{
+  width:38px;height:38px;border-radius:50%;
+  background:linear-gradient(135deg,var(--sage),var(--sage-mid));
+  color:#fff;font-weight:600;font-size:.9rem;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;flex-shrink:0;
+  border:2px solid var(--sage-light);
+  transition:all var(--transition);
+}
+.avatar:hover{border-color:var(--sage);transform:scale(1.05)}
+
+/* ── BOTTOM NAV ──────────────────────────── */
+.bottom-nav{
+  position:fixed;bottom:0;left:0;right:0;
+  background:var(--card);
+  border-top:1px solid var(--line);
+  display:flex;justify-content:space-around;
+  padding:8px 8px max(env(safe-area-inset-bottom,0px),8px);
+  z-index:200;
+}
+.nav-item{
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+  background:none;border:none;
+  font-family:var(--font-sans);font-size:.68rem;font-weight:500;
+  color:var(--ink-soft);cursor:pointer;
+  padding:6px 16px;border-radius:var(--radius-sm);
+  transition:all var(--transition);
+  position:relative;
+}
+.nav-item svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;transition:all var(--transition)}
+.nav-item.active{color:var(--sage)}
+.nav-item.active svg{stroke:var(--sage)}
+.nav-item.active::after{
+  content:'';position:absolute;bottom:-8px;left:50%;transform:translateX(-50%);
+  width:4px;height:4px;border-radius:50%;background:var(--sage);
+}
+
+/* ── VIEWS ───────────────────────────────── */
+.view{display:none;animation:fadeUp .28s ease both}
+.view.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── HERO ────────────────────────────────── */
+.hero{
+  margin:28px 0;
+  background:linear-gradient(135deg,#e8f3ee 0%,#f0f7eb 50%,#fdf2ea 100%);
+  border-radius:var(--radius-lg);
+  padding:52px 48px;
+  position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;top:-60px;right:-80px;
+  width:320px;height:320px;border-radius:50%;
+  background:radial-gradient(circle,rgba(26,107,74,.12) 0%,transparent 70%);
+  pointer-events:none;
+}
+.hero::after{
+  content:'';position:absolute;bottom:-40px;left:-40px;
+  width:200px;height:200px;border-radius:50%;
+  background:radial-gradient(circle,rgba(232,119,42,.08) 0%,transparent 70%);
+  pointer-events:none;
+}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--sage-light);color:var(--sage);
+  font-size:.75rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+  padding:5px 14px;border-radius:50px;margin-bottom:16px;
+}
+.hero h1{
+  font-family:var(--font-serif);
+  font-size:clamp(2rem,5vw,3.2rem);
+  line-height:1.15;color:var(--ink);
+  margin-bottom:12px;
+}
+.hero h1 em{color:var(--sage);font-style:italic}
+.hero p{
+  color:var(--ink-mid);font-size:.97rem;
+  max-width:480px;margin-bottom:28px;line-height:1.6;
+}
+
+/* ── SEARCH BAR ──────────────────────────── */
+.search-bar{
+  display:flex;gap:8px;
+  background:var(--card);
+  border:1.5px solid var(--line);
+  border-radius:var(--radius);
+  padding:6px 6px 6px 18px;
+  box-shadow:var(--shadow);
+  max-width:580px;
+}
+.search-bar input,.search-bar select{
+  flex:1;border:none;background:transparent;
+  font-family:var(--font-sans);font-size:.88rem;
+  color:var(--ink);outline:none;min-width:0;
+}
+.search-bar select{
+  max-width:130px;cursor:pointer;
+  color:var(--ink-soft);
+}
+
+/* ── SECTION HEADERS ─────────────────────── */
+.section-header{
+  display:flex;align-items:center;justify-content:space-between;
+  margin:32px 0 16px;
+}
+.section-title{
+  font-family:var(--font-serif);font-size:1.4rem;
+  color:var(--ink);display:flex;align-items:center;gap:10px;
+}
+.section-count{
+  background:var(--sage-light);color:var(--sage);
+  font-size:.72rem;font-weight:600;
+  padding:3px 10px;border-radius:50px;
+}
+
+/* ── OFFER CARDS ─────────────────────────── */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(290px,1fr));
+  gap:16px;margin-bottom:40px;
+}
+.offer-card{
+  background:var(--card);border:1.5px solid var(--line);
+  border-radius:var(--radius);padding:22px;
+  cursor:pointer;transition:all var(--transition);
+  display:flex;flex-direction:column;gap:12px;
+  position:relative;overflow:hidden;
+}
+.offer-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--sage),var(--sage-mid));
+  transform:scaleX(0);transform-origin:left;
+  transition:transform var(--transition);
+}
+.offer-card:hover{
+  transform:translateY(-4px);
+  box-shadow:var(--shadow-lg);
+  border-color:var(--sage-light);
+}
+.offer-card:hover::before{transform:scaleX(1)}
+
+.card-tag{
+  display:inline-flex;align-items:center;gap:5px;
+  background:var(--sage-light);color:var(--sage);
+  font-size:.7rem;font-weight:600;letter-spacing:.03em;text-transform:uppercase;
+  padding:4px 10px;border-radius:50px;width:fit-content;
+}
+.card-title{
+  font-family:var(--font-serif);font-size:1.15rem;
+  line-height:1.3;color:var(--ink);
+}
+.card-desc{
+  font-size:.82rem;color:var(--ink-soft);
+  line-height:1.5;display:-webkit-box;
+  -webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+}
+.card-meta{
+  display:flex;gap:14px;flex-wrap:wrap;
+  font-size:.75rem;color:var(--ink-soft);
+}
+.card-meta-item{display:flex;align-items:center;gap:5px}
+.card-footer{
+  display:flex;align-items:center;justify-content:space-between;
+  padding-top:10px;border-top:1px solid var(--line);
+  margin-top:auto;
+}
+.rating-badge{
+  display:flex;align-items:center;gap:4px;
+  font-size:.78rem;font-weight:600;color:var(--amber);
+}
+.spots-badge{
+  background:var(--sage-pale);color:var(--sage);
+  font-size:.72rem;font-weight:500;
+  padding:3px 10px;border-radius:50px;
+}
+
+/* ── TAG PILLS ───────────────────────────── */
+.pill{
+  display:inline-flex;align-items:center;gap:4px;
+  padding:4px 12px;border-radius:50px;
+  font-size:.73rem;font-weight:500;
+}
+.pill-sage{background:var(--sage-light);color:var(--sage)}
+.pill-amber{background:var(--amber-light);color:var(--amber)}
+.pill-sky{background:var(--sky-light);color:var(--sky)}
+.pill-rose{background:var(--rose-light);color:var(--rose)}
+
+/* ── WIDGETS / PANELS ────────────────────── */
+.panel{
+  background:var(--card);border:1.5px solid var(--line);
+  border-radius:var(--radius);padding:24px;margin-bottom:20px;
+}
+.panel-header{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:20px;
+}
+.panel-title{
+  font-family:var(--font-serif);font-size:1.15rem;
+  color:var(--ink);display:flex;align-items:center;gap:8px;
+}
+
+/* ── LIST ITEMS ──────────────────────────── */
+.list-row{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:12px;padding:14px 0;border-bottom:1px solid var(--line);
+  flex-wrap:wrap;
+}
+.list-row:last-child{border-bottom:none}
+.list-row-title{font-size:.9rem;font-weight:500;color:var(--ink)}
+.list-row-sub{font-size:.76rem;color:var(--ink-soft);margin-top:2px}
+
+/* ── STATUS BADGES ───────────────────────── */
+.status{
+  display:inline-flex;align-items:center;gap:5px;
+  font-size:.7rem;font-weight:600;padding:4px 10px;border-radius:50px;
+}
+.status-pending{background:#fef8e8;color:#b08030;border:1px solid #f0dfa0}
+.status-accepted{background:#e6f7ee;color:#1a7a3a;border:1px solid #b2dfc3}
+.status-rejected{background:var(--rose-light);color:var(--rose);border:1px solid #e8b5b6}
+
+/* ── NOTIFICATIONS ───────────────────────── */
+.notif-item{
+  display:flex;align-items:flex-start;gap:12px;
+  padding:12px 0;border-bottom:1px solid var(--line);
+}
+.notif-item:last-child{border-bottom:none}
+.notif-dot{
+  width:8px;height:8px;border-radius:50%;
+  background:var(--sage);flex-shrink:0;margin-top:5px;
+}
+.notif-text{font-size:.83rem;color:var(--ink-mid);line-height:1.5}
+.notif-time{font-size:.7rem;color:var(--ink-soft);margin-top:2px}
+
+/* ── STAT CARDS ──────────────────────────── */
+.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
+.stat-card{
+  background:var(--sage-pale);border-radius:var(--radius-sm);
+  padding:16px;text-align:center;
+}
+.stat-num{
+  font-family:var(--font-serif);font-size:2rem;
+  color:var(--sage);line-height:1;
+}
+.stat-label{font-size:.72rem;color:var(--ink-soft);margin-top:4px}
+
+/* ── PROFILE ─────────────────────────────── */
+.profile-header{
+  display:flex;align-items:center;gap:18px;
+  padding-bottom:20px;border-bottom:1px solid var(--line);
+  margin-bottom:20px;
+}
+.profile-avatar{
+  width:72px;height:72px;border-radius:50%;
+  background:linear-gradient(135deg,var(--sage),var(--sage-mid));
+  color:#fff;font-family:var(--font-serif);font-size:2rem;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;border:3px solid var(--sage-light);
+}
+.profile-name{font-family:var(--font-serif);font-size:1.5rem}
+.profile-role{
+  display:inline-flex;align-items:center;gap:5px;
+  background:var(--sage-light);color:var(--sage);
+  font-size:.72rem;font-weight:600;
+  padding:3px 10px;border-radius:50px;margin-top:4px;
+}
+.profile-fields{display:grid;gap:12px}
+.field-row{
+  display:flex;align-items:center;gap:12px;
+  padding:12px;background:var(--bg);border-radius:var(--radius-sm);
+  font-size:.85rem;
+}
+.field-icon{
+  width:32px;height:32px;border-radius:8px;
+  background:var(--sage-light);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;font-size:1rem;
+}
+
+/* ── HISTORY ─────────────────────────────── */
+.history-item{
+  display:flex;align-items:center;gap:12px;
+  padding:12px 0;border-bottom:1px solid var(--line);
+}
+.history-item:last-child{border-bottom:none}
+.history-icon{
+  width:36px;height:36px;border-radius:10px;
+  background:var(--sage-light);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;font-size:1rem;
+}
+
+/* ── MODALS ──────────────────────────────── */
+.modal-backdrop{
+  display:none;position:fixed;inset:0;
+  background:rgba(10,20,15,.5);
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  z-index:500;align-items:flex-end;justify-content:center;
+}
+.modal-backdrop.open{display:flex;animation:backdropIn .2s ease}
+@keyframes backdropIn{from{opacity:0}to{opacity:1}}
+
+.modal-sheet{
+  background:var(--card);
+  border-radius:var(--radius-lg) var(--radius-lg) 0 0;
+  width:100%;max-width:620px;
+  max-height:92vh;overflow-y:auto;
+  padding:20px 24px max(env(safe-area-inset-bottom,0px),24px);
+  animation:sheetUp .3s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes sheetUp{from{transform:translateY(60px);opacity:0}to{transform:translateY(0);opacity:1}}
+
+.modal-handle{
+  width:40px;height:4px;border-radius:2px;
+  background:var(--line);margin:0 auto 20px;
+}
+.modal-header{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:16px}
+.modal-title{font-family:var(--font-serif);font-size:1.4rem;line-height:1.25;color:var(--ink)}
+.modal-close{
+  width:32px;height:32px;border-radius:50%;
+  background:var(--bg);border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--ink-soft);flex-shrink:0;
+  transition:all var(--transition);
+}
+.modal-close:hover{background:var(--sage-light);color:var(--sage)}
+
+/* ── FORMS ───────────────────────────────── */
+.form-group{margin-bottom:14px}
+.form-label{display:block;font-size:.78rem;font-weight:600;color:var(--ink-mid);margin-bottom:6px;letter-spacing:.02em}
+.form-input{
+  width:100%;padding:11px 14px;
+  border:1.5px solid var(--line);border-radius:var(--radius-sm);
+  background:var(--bg);font-family:var(--font-sans);
+  font-size:.88rem;color:var(--ink);outline:none;
+  transition:border-color var(--transition);
+}
+.form-input:focus{border-color:var(--sage);background:var(--card)}
+.form-input::placeholder{color:var(--ink-soft)}
+select.form-input{cursor:pointer}
+textarea.form-input{resize:vertical;min-height:80px;line-height:1.5}
+
+/* ── STARS ───────────────────────────────── */
+.stars{display:flex;gap:4px}
+.star{
+  font-size:1.3rem;cursor:pointer;
+  color:#dde8e2;transition:color var(--transition);
+}
+.star.lit{color:var(--amber)}
+.star:hover,.star:hover~.star{color:#e8e0d0}
+
+/* ── COMMENTS ────────────────────────────── */
+.comment{
+  padding:12px;background:var(--bg);border-radius:var(--radius-sm);
+  margin-bottom:10px;
+}
+.comment-author{font-size:.82rem;font-weight:600;color:var(--ink)}
+.comment-stars{color:var(--amber);font-size:.78rem}
+.comment-text{font-size:.82rem;color:var(--ink-mid);margin-top:4px;line-height:1.5}
+
+/* ── TABS ────────────────────────────────── */
+.tabs{display:flex;gap:4px;background:var(--bg);border-radius:var(--radius-sm);padding:4px;margin-bottom:20px}
+.tab-btn{
+  flex:1;padding:8px;border:none;background:none;
+  font-family:var(--font-sans);font-size:.82rem;font-weight:500;
+  color:var(--ink-soft);cursor:pointer;border-radius:7px;
+  transition:all var(--transition);
+}
+.tab-btn.active{background:var(--card);color:var(--sage);font-weight:600;box-shadow:var(--shadow-sm)}
+
+/* ── EMPTY STATE ─────────────────────────── */
+.empty-state{
+  text-align:center;padding:48px 24px;
+  color:var(--ink-soft);
+}
+.empty-state-icon{font-size:2.8rem;margin-bottom:12px}
+.empty-state h3{font-family:var(--font-serif);font-size:1.2rem;color:var(--ink-mid);margin-bottom:6px}
+.empty-state p{font-size:.84rem;line-height:1.6}
+
+/* ── RECOMMENDATIONS ─────────────────────── */
+.rec-card{
+  display:flex;gap:14px;align-items:center;
+  padding:12px;background:var(--bg);border-radius:var(--radius-sm);
+  margin-bottom:8px;cursor:pointer;transition:all var(--transition);
+}
+.rec-card:hover{background:var(--sage-pale);transform:translateX(3px)}
+.rec-icon{
+  width:42px;height:42px;border-radius:10px;
+  background:var(--sage-light);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.3rem;flex-shrink:0;
+}
+.rec-title{font-size:.86rem;font-weight:500;color:var(--ink)}
+.rec-meta{font-size:.74rem;color:var(--ink-soft);margin-top:2px}
+
+/* ── ORG OFFER CARD ──────────────────────── */
+.org-card{
+  background:var(--card);border:1.5px solid var(--line);
+  border-radius:var(--radius);padding:18px;
+  display:flex;align-items:flex-start;justify-content:space-between;
+  gap:12px;margin-bottom:12px;
+}
+.org-card-actions{display:flex;gap:8px;flex-shrink:0;flex-wrap:wrap}
+
+/* ── DIVIDER ─────────────────────────────── */
+.divider{border:none;border-top:1px solid var(--line);margin:20px 0}
+
+/* ── TOAST ───────────────────────────────── */
+.toast{
+  position:fixed;bottom:84px;left:50%;transform:translateX(-50%);
+  background:var(--ink);color:#fff;
+  padding:10px 20px;border-radius:50px;
+  font-size:.8rem;font-weight:500;
+  z-index:999;white-space:nowrap;
+  display:flex;align-items:center;gap:7px;
+  box-shadow:var(--shadow-lg);
+  animation:toastIn .3s cubic-bezier(.34,1.56,.64,1) both,
+            toastOut .3s ease .26s both;
+}
+@keyframes toastIn{from{opacity:0;transform:translate(-50%,10px)}}
+@keyframes toastOut{20%{opacity:1}100%{opacity:0}}
+.toast-success{background:var(--sage)}
+.toast-error{background:var(--rose)}
+
+/* ── DETAILS SECTION ─────────────────────── */
+.detail-chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+.detail-chip{
+  display:flex;align-items:center;gap:6px;
+  padding:7px 14px;background:var(--bg);border-radius:var(--radius-sm);
+  font-size:.8rem;color:var(--ink-mid);border:1px solid var(--line);
+}
+
+/* ── PROGRESS BAR ────────────────────────── */
+.progress-bar{height:6px;background:var(--line);border-radius:3px;overflow:hidden;margin-top:6px}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--sage),var(--sage-mid));border-radius:3px;transition:width .5s ease}
+
+/* ── AUTH TOGGLE ─────────────────────────── */
+.auth-toggle{
+  display:flex;gap:0;background:var(--bg);
+  border-radius:var(--radius-sm);border:1.5px solid var(--line);
+  overflow:hidden;margin-bottom:20px;
+}
+.auth-tab{
+  flex:1;padding:10px;border:none;background:transparent;
+  font-family:var(--font-sans);font-size:.84rem;font-weight:500;
+  color:var(--ink-soft);cursor:pointer;transition:all var(--transition);
+}
+.auth-tab.active{background:var(--sage);color:#fff;font-weight:600}
+
+/* ── RESPONSIVE ──────────────────────────── */
+@media(min-width:640px){
+  .modal-backdrop{align-items:center}
+  .modal-sheet{border-radius:var(--radius-lg);max-height:85vh;margin:0}
+}
+@media(max-width:580px){
+  .hero{padding:32px 24px}
+  .search-bar{flex-direction:column;border-radius:var(--radius);padding:10px}
+  .search-bar input,.search-bar select{padding:8px 4px}
+  .search-bar select{max-width:none;border-top:1px solid var(--line);padding-top:10px}
+  .stats-grid{grid-template-columns:repeat(3,1fr)}
+  .nav-item{padding:6px 10px;font-size:.62rem}
+}
+@media(max-width:400px){
+  .stats-grid{grid-template-columns:repeat(3,1fr)}
+  .stat-num{font-size:1.5rem}
+}
+</style>
+</head>
+<body>
+
+<!-- ════════════════════ HEADER ════════════════════ -->
+<header class="header">
+  <div class="container">
+    <div class="header-inner">
+      <a class="logo" href="#" onclick="navigate('home');return false">
+        <img src="./logo.webp" alt="VolunConnect" width="80px"> 
+      </a>
+      <div class="header-actions" id="headerActions">
+        <!-- filled by JS -->
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ════════════════════ MAIN ════════════════════ -->
+<main class="container">
+
+  <!-- ── HOME ─────────────────── -->
+  <div id="viewHome" class="view active">
+    <section class="hero">
+      <div class="hero-eyebrow">🌿 Plataforma de voluntariado</div>
+      <h1>Haz la diferencia <em>hoy</em></h1>
+      <p>Conecta con causas que transforman vidas. Únete a miles de voluntarios que ya están cambiando el mundo.</p>
+      <div class="search-bar">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--sage)" stroke-width="2" style="flex-shrink:0"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        <input type="text" id="searchInput" placeholder="Buscar oportunidad..." autocomplete="off">
+        <select id="locationFilter" class="form-input" style="border:none;background:transparent;max-width:140px;padding:0 8px">
+          <option value="">Todas las ciudades</option>
+          <option>Madrid</option><option>Barcelona</option><option>Valencia</option><option>Sevilla</option><option>Bilbao</option>
+        </select>
+        <button class="btn btn-primary btn-sm" id="searchBtn">Buscar</button>
+      </div>
+    </section>
+
+    <div class="section-header">
+      <h2 class="section-title">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--sage)" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        Ofertas destacadas
+      </h2>
+      <span class="section-count" id="offerCount">0 ofertas</span>
+    </div>
+    <div id="offersGrid" class="grid"></div>
+  </div>
+
+  <!-- ── DASHBOARD ─────────────── -->
+  <div id="viewDashboard" class="view">
+    <div class="section-header" style="margin-top:24px">
+      <h2 class="section-title">Mi espacio</h2>
+    </div>
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="inscriptions">📋 Inscripciones</button>
+      <button class="tab-btn" data-tab="notifications">🔔 Notificaciones</button>
+      <button class="tab-btn" data-tab="recommended">✨ Recomendados</button>
+    </div>
+    <div id="tabInscriptions">
+      <div class="panel"><div id="enrollmentList"></div></div>
+    </div>
+    <div id="tabNotifications" style="display:none">
+      <div class="panel"><div id="notifList"></div></div>
+    </div>
+    <div id="tabRecommended" style="display:none">
+      <div class="panel"><div id="recList"></div></div>
+    </div>
+  </div>
+
+  <!-- ── ORGANIZATION ──────────── -->
+  <div id="viewOrganization" class="view">
+    <div class="section-header" style="margin-top:24px">
+      <h2 class="section-title">Panel de organización</h2>
+      <button class="btn btn-primary btn-sm" id="newOfferBtn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Nueva oferta
+      </button>
+    </div>
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="orgOffers">📁 Mis ofertas</button>
+      <button class="tab-btn" data-tab="orgRequests">📩 Solicitudes</button>
+    </div>
+    <div id="tabOrgOffers">
+      <div id="orgOffersList"></div>
+    </div>
+    <div id="tabOrgRequests" style="display:none">
+      <div class="panel"><div id="orgRequestsList"></div></div>
+    </div>
+  </div>
+
+  <!-- ── PROFILE ───────────────── -->
+  <div id="viewProfile" class="view">
+    <div class="section-header" style="margin-top:24px">
+      <h2 class="section-title">Mi perfil</h2>
+      <button class="btn btn-ghost btn-sm" id="editProfileBtn">✏️ Editar</button>
+    </div>
+    <div class="panel">
+      <div id="profileMain"></div>
+      <hr class="divider">
+      <h3 style="font-family:var(--font-serif);font-size:1.05rem;margin-bottom:14px">Estadísticas</h3>
+      <div class="stats-grid" id="statsGrid"></div>
+      <hr class="divider">
+      <h3 style="font-family:var(--font-serif);font-size:1.05rem;margin-bottom:14px">Historial de voluntariados</h3>
+      <div id="historyList"></div>
+    </div>
+  </div>
+
+</main>
+
+<!-- ════════════════════ BOTTOM NAV ════════════════════ -->
+<nav class="bottom-nav">
+  <button class="nav-item active" data-view="home">
+    <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    Inicio
+  </button>
+  <button class="nav-item" data-view="dashboard">
+    <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+    Mi espacio
+  </button>
+  <button class="nav-item" data-view="organization">
+    <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><line x1="9" y1="22" x2="9" y2="12"/><line x1="15" y1="12" x2="15" y2="22"/><rect x="7" y="3" width="10" height="6" rx="1"/></svg>
+    Mi ONG
+  </button>
+  <button class="nav-item" data-view="profile">
+    <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    Perfil
+  </button>
+</nav>
+
+<!-- ════════════════════ MODAL: OFFER DETAIL ════════════════════ -->
+<div id="offerModal" class="modal-backdrop">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <div class="modal-header">
+      <div>
+        <div id="mTag" class="pill pill-sage" style="margin-bottom:8px"></div>
+        <h2 class="modal-title" id="mTitle"></h2>
+      </div>
+      <button class="modal-close" id="closeOfferModal">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <p id="mDesc" style="font-size:.88rem;color:var(--ink-mid);line-height:1.65;margin-bottom:14px"></p>
+    <div class="detail-chips" id="mChips"></div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+      <div class="rating-badge">
+        ★ <span id="mRating">0.0</span> <span style="color:var(--ink-soft);font-weight:400">/ 5</span>
+      </div>
+      <div class="spots-badge" id="mSpots"></div>
+    </div>
+    <div id="mProgress" style="margin-bottom:18px"></div>
+    <button class="btn btn-primary" style="width:100%;justify-content:center;padding:13px" id="enrollBtn">💚 Inscribirme en esta actividad</button>
+    <hr class="divider">
+    <h4 style="font-family:var(--font-serif);margin-bottom:12px">Comentarios y valoraciones</h4>
+    <div id="mComments" style="margin-bottom:16px;max-height:200px;overflow-y:auto"></div>
+    <textarea id="commentText" class="form-input" rows="2" placeholder="Comparte tu experiencia con esta actividad..."></textarea>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-top:8px">
+      <div class="stars" id="starRating">
+        <span class="star" data-v="1">★</span><span class="star" data-v="2">★</span>
+        <span class="star" data-v="3">★</span><span class="star" data-v="4">★</span>
+        <span class="star" data-v="5">★</span>
+      </div>
+      <button class="btn btn-ghost btn-sm" id="sendCommentBtn">Enviar valoración</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════ MODAL: AUTH ════════════════════ -->
+<div id="authModal" class="modal-backdrop">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <div class="auth-toggle">
+      <button class="auth-tab active" id="tabLogin">Iniciar sesión</button>
+      <button class="auth-tab" id="tabRegister">Crear cuenta</button>
+    </div>
+    <div id="authLoginForm">
+      <div class="form-group">
+        <label class="form-label">Correo electrónico</label>
+        <input type="email" id="loginEmail" class="form-input" placeholder="tu@email.com" autocomplete="email">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Contraseña</label>
+        <input type="password" id="loginPassword" class="form-input" placeholder="••••••••" autocomplete="current-password">
+      </div>
+      <p style="font-size:.76rem;color:var(--ink-soft);margin-bottom:16px">Demo: <strong>monica@voluntario.es</strong> / <strong>123</strong></p>
+      <button class="btn btn-primary" style="width:100%;justify-content:center;padding:13px" id="loginBtn">Acceder a mi cuenta</button>
+    </div>
+    <div id="authRegisterForm" style="display:none">
+      <div class="form-group">
+        <label class="form-label">Nombre completo</label>
+        <input type="text" id="regName" class="form-input" placeholder="Tu nombre">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Correo electrónico</label>
+        <input type="email" id="regEmail" class="form-input" placeholder="tu@email.com">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Contraseña</label>
+        <input type="password" id="regPassword" class="form-input" placeholder="Mínimo 6 caracteres">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Teléfono</label>
+        <input type="tel" id="regPhone" class="form-input" placeholder="+34 600 000 000">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Tipo de cuenta</label>
+        <select id="regRole" class="form-input">
+          <option value="volunteer">🙋 Voluntario/a</option>
+          <option value="organization">🏢 Organización sin ánimo de lucro</option>
+        </select>
+      </div>
+      <button class="btn btn-primary" style="width:100%;justify-content:center;padding:13px" id="registerBtn">Crear mi cuenta</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════ MODAL: NEW OFFER ════════════════════ -->
+<div id="newOfferModal" class="modal-backdrop">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <div class="modal-header">
+      <h2 class="modal-title">Nueva oferta de voluntariado</h2>
+      <button class="modal-close" id="closeNewOfferModal">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Título de la oferta *</label>
+      <input type="text" id="nTitle" class="form-input" placeholder="Ej: Reforestación en la Sierra">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Descripción *</label>
+      <textarea id="nDesc" class="form-input" rows="3" placeholder="Describe la actividad, qué harán los voluntarios..."></textarea>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      <div class="form-group">
+        <label class="form-label">Ciudad *</label>
+        <select id="nCity" class="form-input">
+          <option>Madrid</option><option>Barcelona</option><option>Valencia</option><option>Sevilla</option><option>Bilbao</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Plazas disponibles *</label>
+        <input type="number" id="nSpots" class="form-input" placeholder="10" min="1" max="999">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Fecha de inicio</label>
+      <input type="date" id="nDate" class="form-input">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Categoría</label>
+      <select id="nCategory" class="form-input">
+        <option value="🌿 Medioambiente">🌿 Medioambiente</option>
+        <option value="📚 Educación">📚 Educación</option>
+        <option value="🐾 Animales">🐾 Animales</option>
+        <option value="❤️ Ayuda social">❤️ Ayuda social</option>
+        <option value="🏥 Salud">🏥 Salud</option>
+        <option value="🎨 Cultura">🎨 Cultura</option>
+      </select>
+    </div>
+    <button class="btn btn-primary" style="width:100%;justify-content:center;padding:13px" id="createOfferBtn">Publicar oferta</button>
+  </div>
+</div>
+
+<script>
+(function(){
+'use strict';
+
+// ── DATA ──────────────────────────────────────────────────────────────────────
+const OFFERS = [
+  {id:1,title:'Reforestación Sierra Norte',desc:'Planta árboles autóctonos y aprende sobre ecosistemas. Jornadas familiares en un entorno natural increíble.',city:'Madrid',date:'15–18 Jun 2025',spots:8,maxSpots:20,rating:4.8,category:'🌿 Medioambiente',org:'EcoFundación'},
+  {id:2,title:'Clases de Refuerzo Escolar',desc:'Ayuda a niños de entre 8 y 14 años con sus tareas y dificultades escolares. Sesiones de 2h los sábados.',city:'Barcelona',date:'Todos los sábados',spots:5,maxSpots:12,rating:4.5,category:'📚 Educación',org:'Fundació Educació'},
+  {id:3,title:'Refugio de Animales',desc:'Cuida, socializa y da cariño a animales rescatados a la espera de adopción. Impacto directo y gratificante.',city:'Valencia',date:'Fines de semana',spots:6,maxSpots:15,rating:4.7,category:'🐾 Animales',org:'PatasSinHogar'},
+  {id:4,title:'Banco de Alimentos',desc:'Clasifica y reparte alimentos a familias en situación de vulnerabilidad. Un gesto pequeño con gran impacto.',city:'Sevilla',date:'Todos los miércoles',spots:12,maxSpots:30,rating:4.9,category:'❤️ Ayuda social',org:'Cáritas Sevilla'},
+  {id:5,title:'Acompañamiento a Mayores',desc:'Visita y acompaña a personas mayores en residencias o sus hogares. Combatir la soledad es un acto de amor.',city:'Madrid',date:'Flexible',spots:9,maxSpots:20,rating:4.6,category:'❤️ Ayuda social',org:'Cruz Roja Madrid'},
+  {id:6,title:'Limpieza de Playas',desc:'Únete a nuestra brigada mensual de limpieza del litoral. Material incluido, solo necesitas ganas.',city:'Barcelona',date:'1er domingo de mes',spots:20,maxSpots:50,rating:4.4,category:'🌿 Medioambiente',org:'OcéanoVivo'}
+];
+
+const USERS = [
+  {id:1,name:'Mónica Blanco',email:'monica@voluntario.es',pass:'123',role:'volunteer',phone:'+34 683 536 012',hours:42,events:7,skills:['Educación','Medioambiente'],joined:'Enero 2024'},
+  {id:2,name:'EcoFundación',email:'eco@fundacion.org',pass:'123',role:'organization',phone:'912 345 678',orgOffers:[1,6],joined:'Marzo 2023'}
+];
+
+let state = {
+  user: null,
+  offers: [...OFFERS],
+  enrollments: [],
+  notifications: [],
+  comments: {},
+  nextOfferId: OFFERS.length + 1
+};
+
+// ── UTILS ─────────────────────────────────────────────────────────────────────
+function esc(s){ return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])) }
+function el(id){ return document.getElementById(id) }
+function show(id,v=true){ el(id).style.display=v?'':'none' }
+
+function toast(msg, type='success'){
+  let t=document.createElement('div');
+  t.className=`toast toast-${type}`;
+  t.innerHTML=(type==='success'?'✓ ':type==='error'?'✕ ':'')+esc(msg);
+  document.body.appendChild(t);
+  setTimeout(()=>t.remove(),3000);
+}
+
+function openModal(id){ el(id).classList.add('open') }
+function closeModal(id){ el(id).classList.remove('open') }
+
+// close modals on backdrop click
+document.querySelectorAll('.modal-backdrop').forEach(m=>{
+  m.addEventListener('click',e=>{ if(e.target===m) m.classList.remove('open') });
+});
+
+// ── NAVIGATION ────────────────────────────────────────────────────────────────
+function navigate(view){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(b=>b.classList.remove('active'));
+  const viewMap={home:'viewHome',dashboard:'viewDashboard',organization:'viewOrganization',profile:'viewProfile'};
+  const vEl=el(viewMap[view]);
+  if(vEl) vEl.classList.add('active');
+  document.querySelector(`.nav-item[data-view="${view}"]`)?.classList.add('active');
+  if(view==='home') renderOffers();
+  else if(view==='dashboard') renderDashboard();
+  else if(view==='organization') renderOrgPanel();
+  else if(view==='profile') renderProfile();
+}
+
+document.querySelectorAll('.nav-item').forEach(btn=>{
+  btn.addEventListener('click',()=>navigate(btn.dataset.view));
+});
+
+// ── TABS ──────────────────────────────────────────────────────────────────────
+function initTabs(group){
+  const tabs=document.querySelectorAll(`[data-tab]`);
+  tabs.forEach(btn=>{
+    if(!btn.closest(`#viewDashboard,#viewOrganization`)) return;
+    btn.addEventListener('click',()=>{
+      const container=btn.closest('.view');
+      container.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      const tab=btn.dataset.tab;
+      // hide all tab panes in this view
+      ['Inscriptions','Notifications','Recommended','OrgOffers','OrgRequests'].forEach(t=>{
+        const p=el(`tab${t}`);
+        if(p) p.style.display='none';
+      });
+      const map={inscriptions:'Inscriptions',notifications:'Notifications',recommended:'Recommended',orgOffers:'OrgOffers',orgRequests:'OrgRequests'};
+      const pane=el(`tab${map[tab]}`);
+      if(pane) pane.style.display='';
+    });
+  });
+}
+initTabs();
+
+// ── HEADER AUTH AREA ──────────────────────────────────────────────────────────
+function updateHeader(){
+  const area=el('headerActions');
+  if(state.user){
+    area.innerHTML=`<div class="avatar" id="userAvatar" title="${esc(state.user.name)}">${esc(state.user.name.charAt(0))}</div>`;
+    el('userAvatar').onclick=()=>{ navigate('profile') };
+  } else {
+    area.innerHTML=`<button class="btn btn-ghost btn-sm" id="loginBtn2">Acceder</button><button class="btn btn-primary btn-sm" id="regBtn2">Registrarse</button>`;
+    el('loginBtn2').onclick=()=>showAuth('login');
+    el('regBtn2').onclick=()=>showAuth('register');
+  }
+}
+
+// ── AUTH ──────────────────────────────────────────────────────────────────────
+function showAuth(mode='login'){
+  openModal('authModal');
+  setAuthMode(mode);
+}
+
+function setAuthMode(mode){
+  el('authLoginForm').style.display=mode==='login'?'':'none';
+  el('authRegisterForm').style.display=mode==='register'?'':'none';
+  el('tabLogin').classList.toggle('active',mode==='login');
+  el('tabRegister').classList.toggle('active',mode==='register');
+}
+
+el('tabLogin').onclick=()=>setAuthMode('login');
+el('tabRegister').onclick=()=>setAuthMode('register');
+
+el('loginBtn').onclick=()=>{
+  const email=el('loginEmail').value.trim();
+  const pass=el('loginPassword').value;
+  const user=USERS.find(u=>u.email===email&&u.pass===pass);
+  if(!user){ toast('Credenciales incorrectas','error'); return; }
+  state.user=user;
+  // seed some demo notifications
+  if(!state.notifications.some(n=>n.userId===user.id)){
+    state.notifications.push(
+      {userId:user.id,msg:`¡Bienvenido/a de vuelta, ${user.name.split(' ')[0]}!`,time:'ahora'},
+      {userId:user.id,msg:'Nueva actividad disponible en tu ciudad',time:'hace 2 días'}
+    );
+  }
+  closeModal('authModal');
+  updateHeader();
+  toast(`¡Bienvenido/a, ${user.name.split(' ')[0]}!`);
+};
+
+el('registerBtn').onclick=()=>{
+  const name=el('regName').value.trim();
+  const email=el('regEmail').value.trim();
+  const pass=el('regPassword').value;
+  const phone=el('regPhone').value.trim();
+  const role=el('regRole').value;
+  if(!name||!email||!pass){ toast('Completa todos los campos requeridos','error'); return; }
+  const newUser={id:USERS.length+1,name,email,pass,role,phone,hours:0,events:0,skills:[],joined:'Mayo 2026'};
+  USERS.push(newUser);
+  state.user=newUser;
+  closeModal('authModal');
+  updateHeader();
+  toast('¡Cuenta creada correctamente!');
+};
+
+// ── OFFERS ────────────────────────────────────────────────────────────────────
+function renderOffers(){
+  const search=el('searchInput').value.toLowerCase();
+  const city=el('locationFilter').value;
+  const filtered=state.offers.filter(o=>
+    (o.title.toLowerCase().includes(search)||o.desc.toLowerCase().includes(search))&&
+    (!city||o.city===city)
+  );
+  const grid=el('offersGrid');
+  el('offerCount').textContent=`${filtered.length} oferta${filtered.length!==1?'s':''}`;
+  if(!filtered.length){
+    grid.innerHTML=`<div class="empty-state" style="grid-column:1/-1"><div class="empty-state-icon">🔍</div><h3>Sin resultados</h3><p>Prueba con otra búsqueda o ciudad</p></div>`;
+    return;
+  }
+  grid.innerHTML=filtered.map(o=>`
+    <article class="offer-card" data-id="${o.id}" tabindex="0" role="button" aria-label="${esc(o.title)}">
+      <div class="card-tag">${esc(o.category)}</div>
+      <div class="card-title">${esc(o.title)}</div>
+      <div class="card-desc">${esc(o.desc)}</div>
+      <div class="card-meta">
+        <span class="card-meta-item">📍 ${esc(o.city)}</span>
+        <span class="card-meta-item">📅 ${esc(o.date)}</span>
+        <span class="card-meta-item">🏢 ${esc(o.org)}</span>
+      </div>
+      <div class="card-footer">
+        <div class="rating-badge">★ ${o.rating}</div>
+        <div class="spots-badge">${o.spots} plazas libres</div>
+      </div>
+    </article>
+  `).join('');
+  grid.querySelectorAll('.offer-card').forEach(card=>{
+    card.addEventListener('click',()=>openOfferModal(parseInt(card.dataset.id)));
+    card.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' ') openOfferModal(parseInt(card.dataset.id)); });
+  });
+}
+
+el('searchBtn').onclick=renderOffers;
+el('searchInput').addEventListener('input',renderOffers);
+el('locationFilter').addEventListener('change',renderOffers);
+
+// ── OFFER MODAL ───────────────────────────────────────────────────────────────
+let currentOfferId=null;
+let selectedRating=0;
+
+function openOfferModal(id){
+  const o=state.offers.find(x=>x.id===id);
+  if(!o) return;
+  currentOfferId=id;
+  el('mTag').textContent=o.category;
+  el('mTitle').textContent=o.title;
+  el('mDesc').textContent=o.desc;
+  el('mRating').textContent=o.rating.toFixed(1);
+  el('mSpots').textContent=`${o.spots} / ${o.maxSpots} plazas`;
+  el('mChips').innerHTML=`
+    <div class="detail-chip">📍 ${esc(o.city)}</div>
+    <div class="detail-chip">📅 ${esc(o.date)}</div>
+    <div class="detail-chip">🏢 ${esc(o.org)}</div>
+    <div class="detail-chip">🙋 ${o.maxSpots-o.spots} inscritos</div>
+  `;
+  const pct=Math.round((o.maxSpots-o.spots)/o.maxSpots*100);
+  el('mProgress').innerHTML=`
+    <div style="font-size:.73rem;color:var(--ink-soft);margin-bottom:4px">Ocupación: ${pct}%</div>
+    <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>
+  `;
+  renderComments(id);
+  const enrolled=state.enrollments.some(e=>e.userId===state.user?.id&&e.offerId===id);
+  const btn=el('enrollBtn');
+  if(enrolled){
+    btn.textContent='✓ Ya estás inscrito';
+    btn.disabled=true;
+  } else if(o.spots<=0){
+    btn.textContent='Sin plazas disponibles';
+    btn.disabled=true;
+  } else {
+    btn.innerHTML='💚 Inscribirme en esta actividad';
+    btn.disabled=false;
+  }
+  // reset stars
+  selectedRating=0;
+  document.querySelectorAll('.star').forEach(s=>s.classList.remove('lit'));
+  el('commentText').value='';
+  openModal('offerModal');
+}
+
+function renderComments(id){
+  const comments=(state.comments[id]||[]);
+  if(!comments.length){
+    el('mComments').innerHTML='<div class="empty-state" style="padding:16px 0"><p>Sin comentarios aún. ¡Sé el primero!</p></div>';
+    return;
+  }
+  el('mComments').innerHTML=comments.map(c=>`
+    <div class="comment">
+      <div style="display:flex;align-items:center;justify-content:space-between">
+        <span class="comment-author">${esc(c.author)}</span>
+        <span class="comment-stars">${'★'.repeat(c.rating)}${'☆'.repeat(5-c.rating)}</span>
+      </div>
+      <p class="comment-text">${esc(c.text)}</p>
+    </div>
+  `).join('');
+}
+
+el('closeOfferModal').onclick=()=>closeModal('offerModal');
+
+el('enrollBtn').onclick=()=>{
+  if(!state.user){ closeModal('offerModal'); showAuth('login'); return; }
+  const o=state.offers.find(x=>x.id===currentOfferId);
+  if(!o||o.spots<=0) return;
+  state.enrollments.push({userId:state.user.id,offerId:currentOfferId,status:'pending',title:o.title,date:o.date,city:o.city,category:o.category});
+  o.spots--;
+  state.notifications.push({userId:state.user.id,msg:`✅ Inscrito en "${o.title}"`,time:'ahora'});
+  closeModal('offerModal');
+  renderOffers();
+  toast('¡Inscripción realizada con éxito!');
+};
+
+// Stars interaction
+document.querySelectorAll('.star').forEach(star=>{
+  star.addEventListener('click',()=>{
+    selectedRating=parseInt(star.dataset.v);
+    document.querySelectorAll('.star').forEach(s=>{
+      s.classList.toggle('lit',parseInt(s.dataset.v)<=selectedRating);
+    });
+  });
+  star.addEventListener('mouseover',()=>{
+    const v=parseInt(star.dataset.v);
+    document.querySelectorAll('.star').forEach(s=>{
+      s.classList.toggle('lit',parseInt(s.dataset.v)<=v);
+    });
+  });
+  star.addEventListener('mouseout',()=>{
+    document.querySelectorAll('.star').forEach(s=>{
+      s.classList.toggle('lit',parseInt(s.dataset.v)<=selectedRating);
+    });
+  });
+});
+
+el('sendCommentBtn').onclick=()=>{
+  if(!state.user){ showAuth('login'); return; }
+  const text=el('commentText').value.trim();
+  if(!text){ toast('Escribe un comentario','error'); return; }
+  if(!selectedRating){ toast('Selecciona una valoración','error'); return; }
+  if(!state.comments[currentOfferId]) state.comments[currentOfferId]=[];
+  state.comments[currentOfferId].unshift({author:state.user.name,rating:selectedRating,text});
+  // update average rating
+  const o=state.offers.find(x=>x.id===currentOfferId);
+  const all=state.comments[currentOfferId];
+  o.rating=parseFloat((all.reduce((s,c)=>s+c.rating,0)/all.length).toFixed(1));
+  renderComments(currentOfferId);
+  el('mRating').textContent=o.rating.toFixed(1);
+  el('commentText').value='';
+  selectedRating=0;
+  document.querySelectorAll('.star').forEach(s=>s.classList.remove('lit'));
+  toast('¡Gracias por tu valoración!');
+};
+
+// ── DASHBOARD ─────────────────────────────────────────────────────────────────
+function renderDashboard(){
+  if(!state.user){
+    el('enrollmentList').innerHTML='<div class="empty-state"><div class="empty-state-icon">🔐</div><h3>Inicia sesión</h3><p>Para ver tus inscripciones y actividades</p></div>';
+    el('notifList').innerHTML='';el('recList').innerHTML='';return;
+  }
+  const userEnrollments=state.enrollments.filter(e=>e.userId===state.user.id);
+  if(!userEnrollments.length){
+    el('enrollmentList').innerHTML='<div class="empty-state"><div class="empty-state-icon">📋</div><h3>Sin inscripciones</h3><p>Explora las ofertas y encuentra tu próxima causa</p></div>';
+  } else {
+    el('enrollmentList').innerHTML=userEnrollments.map(e=>`
+      <div class="list-row">
+        <div>
+          <div class="list-row-title">${esc(e.title)}</div>
+          <div class="list-row-sub">📍 ${esc(e.city)} · 📅 ${esc(e.date)}</div>
+        </div>
+        <span class="status status-${e.status==='pending'?'pending':e.status==='accepted'?'accepted':'rejected'}">
+          ${e.status==='pending'?'⏳ Pendiente':e.status==='accepted'?'✓ Aceptado':'✕ Rechazado'}
+        </span>
+      </div>
+    `).join('');
+  }
+  const userNotifs=state.notifications.filter(n=>n.userId===state.user.id);
+  if(!userNotifs.length){
+    el('notifList').innerHTML='<div class="empty-state"><div class="empty-state-icon">🔔</div><h3>Sin notificaciones</h3></div>';
+  } else {
+    el('notifList').innerHTML=userNotifs.map(n=>`
+      <div class="notif-item">
+        <div class="notif-dot"></div>
+        <div><div class="notif-text">${esc(n.msg)}</div><div class="notif-time">${esc(n.time||'')}</div></div>
+      </div>
+    `).join('');
+  }
+  const recs=state.offers.filter(o=>o.spots>0).slice(0,4);
+  el('recList').innerHTML=recs.map(o=>`
+    <div class="rec-card" onclick="openOfferModal(${o.id})" tabindex="0">
+      <div class="rec-icon">${o.category.charAt(0)}</div>
+      <div>
+        <div class="rec-title">${esc(o.title)}</div>
+        <div class="rec-meta">📍 ${esc(o.city)} · ⭐ ${o.rating} · ${o.spots} plazas</div>
+      </div>
+    </div>
+  `).join('');
+  window.openOfferModal=openOfferModal; // expose for inline handler
+}
+
+// ── ORG PANEL ─────────────────────────────────────────────────────────────────
+function renderOrgPanel(){
+  if(!state.user||state.user.role!=='organization'){
+    el('orgOffersList').innerHTML='<div class="panel"><div class="empty-state"><div class="empty-state-icon">🏢</div><h3>Acceso restringido</h3><p>Inicia sesión como organización para gestionar ofertas</p></div></div>';
+    el('orgRequestsList').innerHTML='';return;
+  }
+  const myOffers=state.offers.filter(o=>o.org===state.user.name);
+  if(!myOffers.length){
+    el('orgOffersList').innerHTML='<div class="panel"><div class="empty-state"><div class="empty-state-icon">📁</div><h3>Sin ofertas publicadas</h3><p>Crea tu primera oferta de voluntariado</p></div></div>';
+  } else {
+    el('orgOffersList').innerHTML=myOffers.map(o=>`
+      <div class="org-card">
+        <div>
+          <div style="font-size:.72rem;color:var(--sage);font-weight:600;margin-bottom:4px">${esc(o.category)}</div>
+          <div style="font-family:var(--font-serif);font-size:1.05rem">${esc(o.title)}</div>
+          <div style="font-size:.76rem;color:var(--ink-soft);margin-top:4px">📍 ${esc(o.city)} · ${o.spots} plazas libres · ⭐ ${o.rating}</div>
+        </div>
+        <div class="org-card-actions">
+          <button class="btn btn-sky btn-sm edit-offer" data-id="${o.id}">✏️ Editar</button>
+          <button class="btn btn-danger btn-sm del-offer" data-id="${o.id}">🗑</button>
+        </div>
+      </div>
+    `).join('');
+    document.querySelectorAll('.del-offer').forEach(btn=>{
+      btn.onclick=()=>{
+        if(!confirm('¿Eliminar esta oferta? Esta acción no se puede deshacer.')) return;
+        state.offers=state.offers.filter(o=>o.id!=btn.dataset.id);
+        renderOrgPanel();renderOffers();
+        toast('Oferta eliminada');
+      };
+    });
+    document.querySelectorAll('.edit-offer').forEach(btn=>{
+      btn.onclick=()=>toast('Editor de oferta disponible próximamente');
+    });
+  }
+  const myRequests=state.enrollments.filter(e=>
+    state.offers.some(o=>o.org===state.user.name&&o.id===e.offerId)&&e.status==='pending'
+  );
+  if(!myRequests.length){
+    el('orgRequestsList').innerHTML='<div class="empty-state"><div class="empty-state-icon">📩</div><h3>Sin solicitudes pendientes</h3></div>';
+  } else {
+    el('orgRequestsList').innerHTML=myRequests.map((e,i)=>`
+      <div class="list-row">
+        <div>
+          <div class="list-row-title">Voluntario inscrito</div>
+          <div class="list-row-sub">${esc(e.title)} · ${esc(e.city)}</div>
+        </div>
+        <div style="display:flex;gap:8px">
+          <button class="btn btn-sky btn-sm accept-req" data-idx="${i}">✓ Aceptar</button>
+          <button class="btn btn-danger btn-sm reject-req" data-idx="${i}">✕</button>
+        </div>
+      </div>
+    `).join('');
+    document.querySelectorAll('.accept-req').forEach(btn=>{
+      btn.onclick=()=>{
+        const e=myRequests[btn.dataset.idx];
+        if(e) e.status='accepted';
+        state.notifications.push({userId:e?.userId,msg:`✅ Tu solicitud para "${e?.title}" fue aceptada`,time:'ahora'});
+        renderOrgPanel();toast('Solicitud aceptada');
+      };
+    });
+    document.querySelectorAll('.reject-req').forEach(btn=>{
+      btn.onclick=()=>{
+        const e=myRequests[btn.dataset.idx];
+        if(e) e.status='rejected';
+        renderOrgPanel();toast('Solicitud rechazada');
+      };
+    });
+  }
+}
+
+// ── NEW OFFER ─────────────────────────────────────────────────────────────────
+el('newOfferBtn').onclick=()=>{
+  if(!state.user||state.user.role!=='organization'){ showAuth('login'); return; }
+  openModal('newOfferModal');
+};
+el('closeNewOfferModal').onclick=()=>closeModal('newOfferModal');
+
+el('createOfferBtn').onclick=()=>{
+  const title=el('nTitle').value.trim();
+  const desc=el('nDesc').value.trim();
+  const city=el('nCity').value;
+  const spots=parseInt(el('nSpots').value)||10;
+  const date=el('nDate').value||'Próximamente';
+  const cat=el('nCategory').value;
+  if(!title||!desc){ toast('Completa título y descripción','error'); return; }
+  const newOffer={
+    id:state.nextOfferId++,title,desc,city,date,
+    spots,maxSpots:spots,rating:0,category:cat,
+    org:state.user.name
+  };
+  state.offers.unshift(newOffer);
+  closeModal('newOfferModal');
+  el('nTitle').value='';el('nDesc').value='';el('nSpots').value='';el('nDate').value='';
+  renderOrgPanel();renderOffers();
+  toast('¡Oferta publicada!');
+};
+
+// ── PROFILE ───────────────────────────────────────────────────────────────────
+function renderProfile(){
+  if(!state.user){
+    el('profileMain').innerHTML='<div class="empty-state"><div class="empty-state-icon">👤</div><h3>Inicia sesión</h3><p>Para ver tu perfil y estadísticas</p></div>';
+    el('statsGrid').innerHTML='';el('historyList').innerHTML='';return;
+  }
+  const u=state.user;
+  el('profileMain').innerHTML=`
+    <div class="profile-header">
+      <div class="profile-avatar">${esc(u.name.charAt(0))}</div>
+      <div>
+        <div class="profile-name">${esc(u.name)}</div>
+        <div class="profile-role">${u.role==='volunteer'?'🙋 Voluntario/a':'🏢 Organización'}</div>
+        <div style="font-size:.76rem;color:var(--ink-soft);margin-top:4px">Miembro desde ${esc(u.joined||'2024')}</div>
+      </div>
+    </div>
+    <div class="profile-fields">
+      <div class="field-row"><div class="field-icon">📧</div><div><div style="font-size:.72rem;color:var(--ink-soft)">Email</div>${esc(u.email)}</div></div>
+      <div class="field-row"><div class="field-icon">📞</div><div><div style="font-size:.72rem;color:var(--ink-soft)">Teléfono</div>${esc(u.phone||'No registrado')}</div></div>
+      ${u.skills?.length?`<div class="field-row"><div class="field-icon">🌟</div><div><div style="font-size:.72rem;color:var(--ink-soft)">Áreas de interés</div>${u.skills.map(s=>`<span class="pill pill-sage" style="margin:2px">${esc(s)}</span>`).join('')}</div></div>`:''}
+    </div>
+  `;
+  const accepted=state.enrollments.filter(e=>e.userId===u.id&&e.status==='accepted');
+  const total=state.enrollments.filter(e=>e.userId===u.id);
+  el('statsGrid').innerHTML=`
+    <div class="stat-card"><div class="stat-num">${u.hours||0}</div><div class="stat-label">Horas</div></div>
+    <div class="stat-card"><div class="stat-num">${total.length}</div><div class="stat-label">Inscritos</div></div>
+    <div class="stat-card"><div class="stat-num">${accepted.length}</div><div class="stat-label">Completados</div></div>
+  `;
+  if(!accepted.length){
+    el('historyList').innerHTML='<div class="empty-state" style="padding:24px 0"><div class="empty-state-icon">✨</div><h3>¡Empieza tu primer voluntariado!</h3><p>Tu historial aparecerá aquí</p></div>';
+  } else {
+    el('historyList').innerHTML=accepted.map(e=>`
+      <div class="history-item">
+        <div class="history-icon">${e.category?.charAt(0)||'🌱'}</div>
+        <div>
+          <div style="font-size:.87rem;font-weight:500">${esc(e.title)}</div>
+          <div style="font-size:.74rem;color:var(--ink-soft)">📍 ${esc(e.city)}</div>
+        </div>
+        <span class="status status-accepted" style="margin-left:auto">✓ Completado</span>
+      </div>
+    `).join('');
+  }
+}
+
+el('editProfileBtn').onclick=()=>toast('Edición de perfil disponible próximamente');
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+updateHeader();
+renderOffers();
+
+})();
+</script>
+</body>
+</html>
